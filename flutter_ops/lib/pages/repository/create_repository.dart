@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class CreateRepositoryPage extends StatelessWidget {
@@ -71,7 +72,17 @@ class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton(onPressed: () {}, child: Text("创建")),
+                        ElevatedButton(
+                            onPressed: () async {
+                              final response = await Dio().post('http://k8s.ops.hatlonely.com/v1/repository', data: {
+                                'username': _usernameController.value.text,
+                                'password': _passwordController.value.text,
+                                'endpoint': _endpointController.value.text,
+                                'name': _nameController.value.text,
+                              });
+                              print(response.data);
+                            },
+                            child: Text("创建")),
                       ],
                     ),
                   ],
