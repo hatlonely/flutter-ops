@@ -1,7 +1,8 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ops/pages/job_page.dart';
-import 'package:flutter_ops/pages/repository_page.dart';
+import 'package:flutter_ops/pages/repository/create_repository.dart';
+import 'package:flutter_ops/pages/repository/list_repository_page.dart';
 import 'package:flutter_ops/pages/variable_page.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class HomePage extends StatelessWidget {
 
   static final routes = {
     '/repository': (context) => RepositoryPage(),
+    '/repository/create': (context) => CreateRepositoryPage(),
     '/variable': (context) => VariablePage(),
     '/job': (context) => JobPage(),
   };
