@@ -16,7 +16,7 @@ class OpsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '程序员工具集',
       theme: FlexColorScheme.light(
-        scheme: FlexScheme.bigStone,
+        scheme: FlexScheme.jungle,
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
         // fontFamily: GoogleFonts.robotoCondensed().fontFamily,
         // fontFamily: GoogleFonts.longCang().fontFamily,
@@ -90,7 +90,7 @@ class PageGrid extends StatelessWidget {
           children: _pageGrid
               .map((e) => Card(
                     elevation: 5,
-                    color: Theme.of(context).colorScheme.primaryVariant,
+                    color: Theme.of(context).colorScheme.secondary,
                     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                     margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
                     child: InkWell(

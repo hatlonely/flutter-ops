@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class RepositoryPage extends StatelessWidget {
@@ -22,11 +23,16 @@ class RepositoryPage extends StatelessWidget {
 }
 
 class ListRepositoryWidget extends StatelessWidget {
-  static const _pageGrid = [
-    ["repository0"],
-    ["repository1"],
-    ["repository2"],
-  ];
+  // static const _pageGrid = [
+  //   ["repository0"],
+  //   ["repository1"],
+  //   ["repository2"],
+  // ];
+
+  _listRepository() async {
+    var res = await Dio().get('http://k8s.rpc.ops.hatlonely.com/v1/repository');
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,33 +50,20 @@ class ListRepositoryWidget extends StatelessWidget {
           shrinkWrap: true,
           maxCrossAxisExtent: 200.0,
           physics: NeverScrollableScrollPhysics(),
-          children: _pageGrid
-                  .map((e) => Card(
-                        elevation: 5,
-                        color: Theme.of(context).colorScheme.primaryVariant,
-                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                        margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                        child: InkWell(
-                          child: Center(
-                            child: Text(e[0], style: TextStyle(color: Colors.white)),
-                          ),
-                        ),
-                      ))
-                  .toList() +
-              [
-                Card(
-                  elevation: 5,
-                  color: Theme.of(context).colorScheme.primaryVariant,
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: InkWell(
-                    child: Center(
-                      child: Icon(Icons.add, color: Colors.white),
-                    ),
-                    onTap: () => Navigator.pushNamed(context, '/repository/create'),
-                  ),
-                )
-              ],
+          children: [
+            Card(
+              elevation: 5,
+              color: Theme.of(context).colorScheme.secondary,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+              margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: InkWell(
+                child: Center(
+                  child: Icon(Icons.add, color: Colors.white),
+                ),
+                onTap: () => Navigator.pushNamed(context, '/repository/create'),
+              ),
+            )
+          ],
         ),
       ),
     );
