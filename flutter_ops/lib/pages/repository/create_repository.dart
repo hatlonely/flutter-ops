@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:openapi/openapi.dart';
 
 class CreateRepositoryPage extends StatelessWidget {
   @override
@@ -74,19 +75,21 @@ class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              Dio().post('http://k8s.rpc.ops.hatlonely.com/v1/repository', data: {
-                                'username': _usernameController.value.text,
-                                'password': _passwordController.value.text,
-                                'endpoint': _endpointController.value.text,
-                                'name': _nameController.value.text,
-                              }).then((value) {
-                                print(value);
-                              }).catchError((err, stack) {
-                                var e = err as DioError;
+                              final client =
+                                  Openapi(basePathOverride: 'http://k8s.rpc.ops.hatlonely.com').getOpsServiceApi();
+                              var repo = ApiRepositoryBuilder()
+                                ..username = _usernameController.value.text
+                                ..password = _passwordController.value.text
+                                ..endpoint = _endpointController.value.text
+                                ..name = _nameController.value.text;
+
+                              try {
+                                final res = await client.opsServicePutRepository(body: repo.build());
+                              } on DioError catch (e) {
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                   content: SelectableText('发生错误: ${e.response!.statusCode}, ${e.response!.data}'),
                                 ));
-                              });
+                              }
                             },
                             child: Text("创建")),
                       ],

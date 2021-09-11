@@ -50,6 +50,16 @@ task:
             --docker-password=${REGISTRY_PASSWORD} \
             --namespace=${NAMESPACE}
         }
+  api:
+    step:
+      - test -e ${TMP}/rpc-ops || git clone --depth 1 --branch master https://github.com/hatlonely/rpc-ops.git ${TMP}/rpc-ops
+      - |
+        rm -rf "${PWD}/${TMP}/api/ops"
+        docker run --rm -v "${PWD}/${TMP}/rpc-ops/api/gen/swagger/api:/api" -v "${PWD}/${TMP}/api/ops:/out" openapitools/openapi-generator-cli:v5.2.1 generate \
+          -i /api/ops.swagger.json -g dart-dio-next -o /out/
+      - docker run --rm -v "${PWD}/${TMP}/api/ops:/out" cirrusci/flutter:2.2.3 sh -c "cd /out && flutter pub get"
+      - docker run --rm -v "${PWD}/${TMP}/api/ops:/out" cirrusci/flutter:2.2.3 sh -c "cd /out && flutter pub run build_runner build --delete-conflicting-outputs"
+      - cp -r ${PWD}/${TMP}/api flutter_ops/
   font:
     step:
       - wget https://github.com/adobe-fonts/source-han-sans/releases/download/2.004R/SourceHanSansSC.zip
