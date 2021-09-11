@@ -74,13 +74,19 @@ class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              final response = await Dio().post('http://k8s.ops.hatlonely.com/v1/repository', data: {
+                              Dio().post('http://k8s.rpc.ops.hatlonely.com/v1/repository', data: {
                                 'username': _usernameController.value.text,
                                 'password': _passwordController.value.text,
                                 'endpoint': _endpointController.value.text,
                                 'name': _nameController.value.text,
+                              }).then((value) {
+                                print(value);
+                              }).catchError((err, stack) {
+                                var e = err as DioError;
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: SelectableText('发生错误: ${e.response!.statusCode}, ${e.response!.data}'),
+                                ));
                               });
-                              print(response.data);
                             },
                             child: Text("创建")),
                       ],
