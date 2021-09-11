@@ -75,8 +75,9 @@ class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              final client =
-                                  Opsapi(basePathOverride: 'http://k8s.rpc.ops.hatlonely.com').getOpsServiceApi();
+                              final client = Opsapi(
+                                basePathOverride: 'http://k8s.rpc.ops.hatlonely.com',
+                              ).getOpsServiceApi();
                               var repo = ApiRepositoryBuilder()
                                 ..username = _usernameController.value.text
                                 ..password = _passwordController.value.text
