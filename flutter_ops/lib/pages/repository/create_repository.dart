@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:openapi/openapi.dart';
+import 'package:opsapi/opsapi.dart';
 
 class CreateRepositoryPage extends StatelessWidget {
   @override
@@ -76,7 +76,7 @@ class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
                         ElevatedButton(
                             onPressed: () async {
                               final client =
-                                  Openapi(basePathOverride: 'http://k8s.rpc.ops.hatlonely.com').getOpsServiceApi();
+                                  Opsapi(basePathOverride: 'http://k8s.rpc.ops.hatlonely.com').getOpsServiceApi();
                               var repo = ApiRepositoryBuilder()
                                 ..username = _usernameController.value.text
                                 ..password = _passwordController.value.text
