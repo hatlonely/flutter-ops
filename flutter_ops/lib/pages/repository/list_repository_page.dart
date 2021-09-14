@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:opsapi/opsapi.dart';
 
 class RepositoryPage extends StatelessWidget {
+  final OpsServiceApi opsClient;
+
+  RepositoryPage({Key? key, required this.opsClient}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +18,7 @@ class RepositoryPage extends StatelessWidget {
           child: SizedBox(
             width: 800,
             child: Column(
-              children: [ListRepositoryWidget()],
+              children: [ListRepositoryWidget(opsClient: opsClient)],
             ),
           ),
         ),
@@ -24,13 +28,14 @@ class RepositoryPage extends StatelessWidget {
 }
 
 class ListRepositoryWidget extends StatelessWidget {
+  final OpsServiceApi opsClient;
+
+  ListRepositoryWidget({Key? key, required this.opsClient}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Response<ApiListRepositoryRes>>(future: () {
-      final client = Opsapi(
-        basePathOverride: 'http://k8s.rpc.ops.hatlonely.com',
-      ).getOpsServiceApi();
-      return client.opsServiceListRepository();
+      return opsClient.opsServiceListRepository();
     }(), builder: (BuildContext context, AsyncSnapshot<Response<ApiListRepositoryRes>> res) {
       List<Card> cards = [];
       if (res.hasData) {

@@ -5,12 +5,17 @@ import 'package:flutter_ops/pages/repository/create_repository.dart';
 import 'package:flutter_ops/pages/repository/get_repository.dart';
 import 'package:flutter_ops/pages/repository/list_repository_page.dart';
 import 'package:flutter_ops/pages/variable_page.dart';
+import 'package:opsapi/opsapi.dart';
 
 void main() {
   runApp(OpsApp());
 }
 
 class OpsApp extends StatelessWidget {
+  final opsClient = Opsapi(
+    basePathOverride: 'http://k8s.rpc.ops.hatlonely.com',
+  ).getOpsServiceApi();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,24 +31,23 @@ class OpsApp extends StatelessWidget {
         appBarElevation: 5,
       ).toTheme,
       themeMode: ThemeMode.system,
-      routes: HomePage.routes,
-      home: HomePage(title: '程序员工具集'),
+      routes: {
+        '/repository': (context) => RepositoryPage(opsClient: opsClient),
+        '/repository/create': (context) => CreateRepositoryPage(),
+        '/repository/get': (context) => GetRepositoryPage(),
+        '/variable': (context) => VariablePage(),
+        '/job': (context) => JobPage(),
+      },
+      home: HomePage(title: '程序员工具集', opsClient: opsClient),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
   final String title;
+  final OpsServiceApi opsClient;
 
-  HomePage({Key? key, required this.title}) : super(key: key);
-
-  static final routes = {
-    '/repository': (context) => RepositoryPage(),
-    '/repository/create': (context) => CreateRepositoryPage(),
-    '/repository/get': (context) => GetRepositoryPage(),
-    '/variable': (context) => VariablePage(),
-    '/job': (context) => JobPage(),
-  };
+  HomePage({Key? key, required this.title, required this.opsClient}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +61,7 @@ class HomePage extends StatelessWidget {
           child: SizedBox(
             width: 800,
             child: Column(
-              children: [PageGrid()],
+              children: [PageGrid(opsClient: opsClient)],
             ),
           ),
         ),
@@ -72,6 +76,10 @@ class PageGrid extends StatelessWidget {
     ["密钥管理", "/variable"],
     ["任务管理", "/job"],
   ];
+
+  final OpsServiceApi opsClient;
+
+  PageGrid({Key? key, required this.opsClient}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
