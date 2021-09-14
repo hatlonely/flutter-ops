@@ -12,15 +12,16 @@ void main() {
 }
 
 class OpsApp extends StatelessWidget {
-  final opsClient = Opsapi(
+  final _opsClient = Opsapi(
     basePathOverride: 'http://k8s.rpc.ops.hatlonely.com',
   ).getOpsServiceApi();
+  final _title = '程序员工具集';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: '程序员工具集',
+      title: _title,
       theme: FlexColorScheme.light(
         scheme: FlexScheme.jungle,
         visualDensity: FlexColorScheme.comfortablePlatformDensity,
@@ -32,13 +33,13 @@ class OpsApp extends StatelessWidget {
       ).toTheme,
       themeMode: ThemeMode.system,
       routes: {
-        RepositoryPage.kRouteName: (context) => RepositoryPage(opsClient: opsClient),
+        RepositoryPage.kRouteName: (context) => RepositoryPage(opsClient: _opsClient),
         CreateRepositoryPage.kRouteName: (context) => CreateRepositoryPage(),
         GetRepositoryPage.kRouteName: (context) => GetRepositoryPage(),
         VariablePage.kRouteName: (context) => VariablePage(),
         JobPage.kRouteName: (context) => JobPage(),
       },
-      home: HomePage(title: '程序员工具集', opsClient: opsClient),
+      home: HomePage(title: _title, opsClient: _opsClient),
     );
   }
 }
