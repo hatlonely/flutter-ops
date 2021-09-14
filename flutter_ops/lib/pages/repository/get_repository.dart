@@ -5,6 +5,9 @@ class GetRepositoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final id = ModalRoute.of(context)!.settings.arguments as String;
+
+    print(id);
     return Scaffold(
       appBar: AppBar(
         title: Text("新增代码仓库"),
