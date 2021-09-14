@@ -46,7 +46,7 @@ class ListRepositoryWidget extends StatelessWidget {
                   child: Center(
                     child: Text(e.name!, style: TextStyle(color: Colors.white)),
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/repository/create'),
+                  onTap: () => Navigator.pushNamed(context, '/repository/get'),
                 ),
               ),
             )
