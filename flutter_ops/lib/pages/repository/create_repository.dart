@@ -5,6 +5,10 @@ import 'package:opsapi/opsapi.dart';
 class CreateRepositoryPage extends StatelessWidget {
   static const kRouteName = '/repository/create';
 
+  final OpsServiceApi opsClient;
+
+  CreateRepositoryPage({Key? key, required this.opsClient}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class CreateRepositoryPage extends StatelessWidget {
           child: SizedBox(
             width: 800,
             child: Column(
-              children: [CreateRepositoryWidget()],
+              children: [CreateRepositoryWidget(opsClient: opsClient)],
             ),
           ),
         ),
@@ -26,17 +30,24 @@ class CreateRepositoryPage extends StatelessWidget {
 }
 
 class CreateRepositoryWidget extends StatefulWidget {
+  final OpsServiceApi opsClient;
+
+  CreateRepositoryWidget({Key? key, required this.opsClient}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _CreateRepositoryWidgetState();
+  State<StatefulWidget> createState() => _CreateRepositoryWidgetState(opsClient: opsClient);
 }
 
 class _CreateRepositoryWidgetState extends State<CreateRepositoryWidget> {
-  final _formKey = GlobalKey<FormState>();
+  final OpsServiceApi opsClient;
 
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _endpointController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+
+  _CreateRepositoryWidgetState({required this.opsClient});
 
   @override
   Widget build(BuildContext context) {

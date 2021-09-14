@@ -34,7 +34,7 @@ class OpsApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       routes: {
         RepositoryPage.kRouteName: (context) => RepositoryPage(opsClient: _opsClient),
-        CreateRepositoryPage.kRouteName: (context) => CreateRepositoryPage(),
+        CreateRepositoryPage.kRouteName: (context) => CreateRepositoryPage(opsClient: _opsClient),
         GetRepositoryPage.kRouteName: (context) => GetRepositoryPage(),
         VariablePage.kRouteName: (context) => VariablePage(),
         JobPage.kRouteName: (context) => JobPage(),
