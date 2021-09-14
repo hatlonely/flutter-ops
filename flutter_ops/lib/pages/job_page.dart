@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class JobPage extends StatelessWidget {
+  static const kRouteName = '/job';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

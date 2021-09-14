@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ops/pages/repository/create_repository.dart';
 import 'package:opsapi/opsapi.dart';
 
 class RepositoryPage extends StatelessWidget {
+  static const kRouteName = '/repository';
+
   final OpsServiceApi opsClient;
 
   RepositoryPage({Key? key, required this.opsClient}) : super(key: key);
@@ -83,7 +86,7 @@ class ListRepositoryWidget extends StatelessWidget {
                       child: Center(
                         child: Icon(Icons.add, color: Colors.white),
                       ),
-                      onTap: () => Navigator.pushNamed(context, '/repository/create'),
+                      onTap: () => Navigator.pushNamed(context, CreateRepositoryPage.kRouteName),
                     ),
                   ),
                 ],

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GetRepositoryPage extends StatelessWidget {
+  static const kRouteName = '/repository/get';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

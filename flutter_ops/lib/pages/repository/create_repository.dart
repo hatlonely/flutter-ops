@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:opsapi/opsapi.dart';
 
 class CreateRepositoryPage extends StatelessWidget {
+  static const kRouteName = '/repository/create';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

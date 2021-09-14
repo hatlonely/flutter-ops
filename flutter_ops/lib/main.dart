@@ -32,11 +32,11 @@ class OpsApp extends StatelessWidget {
       ).toTheme,
       themeMode: ThemeMode.system,
       routes: {
-        '/repository': (context) => RepositoryPage(opsClient: opsClient),
-        '/repository/create': (context) => CreateRepositoryPage(),
-        '/repository/get': (context) => GetRepositoryPage(),
-        '/variable': (context) => VariablePage(),
-        '/job': (context) => JobPage(),
+        RepositoryPage.kRouteName: (context) => RepositoryPage(opsClient: opsClient),
+        CreateRepositoryPage.kRouteName: (context) => CreateRepositoryPage(),
+        GetRepositoryPage.kRouteName: (context) => GetRepositoryPage(),
+        VariablePage.kRouteName: (context) => VariablePage(),
+        JobPage.kRouteName: (context) => JobPage(),
       },
       home: HomePage(title: '程序员工具集', opsClient: opsClient),
     );
@@ -72,9 +72,9 @@ class HomePage extends StatelessWidget {
 
 class PageGrid extends StatelessWidget {
   static const _pageGrid = [
-    ["代码仓库管理", "/repository"],
-    ["密钥管理", "/variable"],
-    ["任务管理", "/job"],
+    ["代码仓库管理", RepositoryPage.kRouteName],
+    ["密钥管理", VariablePage.kRouteName],
+    ["任务管理", JobPage.kRouteName],
   ];
 
   final OpsServiceApi opsClient;

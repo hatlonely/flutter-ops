@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class VariablePage extends StatelessWidget {
+  static const kRouteName = '/variable';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
